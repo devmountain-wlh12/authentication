@@ -2,6 +2,17 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Authentication
 
+## How to use this repo:
+
+1. Fork and clone
+2. Create an `.env` file which includes these things:
+
+```
+SERVER_PORT = 4040
+SESSION_SECRET = SOMETHINGSECRET
+CONNECTION_STRING = <Your PostgreSQL URI>
+```
+
 ## Encoding, Encryption, and Hashing
 
 * **Encoding** is simply transforming data into a format for sending it across the internet. You can't mail just anything, it needs to by placed in an envelope with a stamp and an address.
