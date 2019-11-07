@@ -1,68 +1,30 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Authentication
 
-In the project directory, you can run:
+## Encoding, Encryption, and Hashing
 
-### `yarn start`
+* **Encoding** is simply transforming data into a format for sending it across the internet. You can't mail just anything, it needs to by placed in an envelope with a stamp and an address.
+* **Encryption** transforms data with the goal of keeping it secret. Both the sender and the recipient have matching keys to unlock the data.
+* **Hashing** transforms the data into an unrecognizable state. Like baking bread, it is a process that cannot be undone. The goal here is to preserve the integrity of the data. This is what we will do with passwords.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Bcrypt.js
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+We will utilize the package `bcryptjs` from npm to handle our need for a hashing algorithm. 
 
-### `yarn test`
+1. `npm i bcryptjs`.
+2. `const bcrypt = require('bcryptjs')`.
+3. Generate a salt with bcrypt to add to our password before hashing it. The method we will use is `bcrypt.genSaltSync(10)`.
+    * The number 10 is instruction to run the hashing algorithm 10 times.
+4. Add the salt and the password to our hashing algorithm like this: `bcrypt.hashSync(password, salt)`.
+    * This will create the final hash of our password.
+5. When the time comes to login and compare the user's password with the hash we have stored, use the method `bcrypt.compareSync(password, hash)`.
+    * _compareSync_ will return true if the password re-hashes the same way as our saved hash, and false if they don't match after hashing.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Important
 
-### `yarn build`
+We are not security experts. This is why we utilize other peoples' packages and code in this process.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Some very popular login authentication packages include: 
+1. [Passport](http://www.passportjs.org/)
+2. [Auth0](https://auth0.com/)
